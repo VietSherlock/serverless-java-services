@@ -12,11 +12,11 @@ import com.vietlnn.serverless.java.services.response.PersonResponse;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 public class SavePersonHandler implements RequestHandler<PersonRequest, PersonResponse> {
 
     private AmazonDynamoDB amazonDynamoDB;
-
     private String DYNAMODB_TABLE_NAME = "Person";
     private Regions REGION = Regions.AP_SOUTHEAST_2;
 
@@ -24,7 +24,6 @@ public class SavePersonHandler implements RequestHandler<PersonRequest, PersonRe
     public PersonResponse handleRequest(PersonRequest personRequest, Context context) {
 
         this.initDynamoDbClient();
-
         persistData(personRequest);
 
         PersonResponse personResponse = new PersonResponse();
@@ -36,7 +35,7 @@ public class SavePersonHandler implements RequestHandler<PersonRequest, PersonRe
 
         Map<String, AttributeValue> attributesMap = new HashMap<>();
 
-        attributesMap.put("id", new AttributeValue(String.valueOf(personRequest.getId())));
+        attributesMap.put("id", new AttributeValue(UUID.randomUUID().toString()));
         attributesMap.put("firstName", new AttributeValue(personRequest.getFirstName()));
         attributesMap.put("lastName", new AttributeValue(personRequest.getLastName()));
         attributesMap.put("age", new AttributeValue(String.valueOf(personRequest.getAge())));

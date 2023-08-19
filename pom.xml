@@ -54,6 +54,10 @@
 	<build>
 		<plugins>
 
+			<!--	Maven shade plugin create  an uber JAR		-->
+			<!--	Uber JAR contains all the dependencies required to run your app,
+			including its own classes and the classes from its dependencies		-->
+
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-shade-plugin</artifactId>
@@ -72,14 +76,14 @@
 							<goal>shade</goal>
 						</goals>
 
-						<configuration>
-							<artifactSet>
-								<excludes>
-									<exclude>com.amazonaws:aws-lambda-java-events</exclude>
-									<exclude>com.amazonaws:aws-lambda-java-core</exclude>
-								</excludes>
-							</artifactSet>
-						</configuration>
+<!--						<configuration>-->
+<!--							<artifactSet>-->
+<!--								<excludes>-->
+<!--									<exclude>com.amazonaws:aws-lambda-java-events</exclude>-->
+<!--									<exclude>com.amazonaws:aws-lambda-java-core</exclude>-->
+<!--								</excludes>-->
+<!--							</artifactSet>-->
+<!--						</configuration>-->
 
 					</execution>
 				</executions>

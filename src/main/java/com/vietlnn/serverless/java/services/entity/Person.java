@@ -1,10 +1,20 @@
-package com.vietlnn.serverless.java.services.request;
+package com.vietlnn.serverless.java.services.entity;
 
-public class PersonRequest {
+public class Person {
+
+    private String id;
     private String firstName;
     private String lastName;
     private int age;
     private String address;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getFirstName() {
         return firstName;
@@ -37,4 +47,5 @@ public class PersonRequest {
     public void setAddress(String address) {
         this.address = address;
     }
+
 }
