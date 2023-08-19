@@ -17,6 +17,7 @@
 		<java.version>17</java.version>
 	</properties>
 	<dependencies>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter</artifactId>
@@ -27,14 +28,63 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+
+		<dependency>
+			<groupId>com.amazonaws</groupId>
+			<artifactId>aws-lambda-java-core</artifactId>
+			<version>1.2.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.amazonaws</groupId>
+			<artifactId>aws-lambda-java-events</artifactId>
+			<version>3.11.0</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/com.amazonaws/aws-java-sdk-dynamodb -->
+		<dependency>
+			<groupId>com.amazonaws</groupId>
+			<artifactId>aws-java-sdk-dynamodb</artifactId>
+			<version>1.12.532</version>
+		</dependency>
+
+
 	</dependencies>
 
 	<build>
 		<plugins>
+
 			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-shade-plugin</artifactId>
+				<version>3.2.4</version>
+				<configuration>
+					<createDependencyReducedPom>false</createDependencyReducedPom>
+					<transformers>
+						<transformer implementation="org.springframework.boot.maven.PropertiesMergingResourceTransformer"/>
+					</transformers>
+				</configuration>
+				<executions>
+					<execution>
+
+						<phase>package</phase>
+						<goals>
+							<goal>shade</goal>
+						</goals>
+
+						<configuration>
+							<artifactSet>
+								<excludes>
+									<exclude>com.amazonaws:aws-lambda-java-events</exclude>
+									<exclude>com.amazonaws:aws-lambda-java-core</exclude>
+								</excludes>
+							</artifactSet>
+						</configuration>
+
+					</execution>
+				</executions>
 			</plugin>
+
 		</plugins>
 	</build>
 
